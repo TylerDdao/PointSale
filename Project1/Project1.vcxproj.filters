@@ -45,7 +45,7 @@
     <ClCompile Include="Order.cpp">
       <Filter>Source Files\BackEnd</Filter>
     </ClCompile>
-    <ClCompile Include="Ramdomizer.cpp">
+    <ClCompile Include="Randomizer.cpp">
       <Filter>Source Files\BackEnd</Filter>
     </ClCompile>
     <ClCompile Include="Sale.cpp">
@@ -69,6 +69,12 @@
     <ClCompile Include="React.cpp">
       <Filter>Source Files\BackEnd</Filter>
     </ClCompile>
+    <ClCompile Include="FileHandling.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Communication.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -86,7 +92,7 @@
     <ClInclude Include="Order.h">
       <Filter>Header Files\BackEnd</Filter>
     </ClInclude>
-    <ClInclude Include="Ramdomizer.h">
+    <ClInclude Include="Randomizer.h">
       <Filter>Header Files\BackEnd</Filter>
     </ClInclude>
     <ClInclude Include="Sale.h">
@@ -108,6 +114,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="React.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHandling.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication.h">
       <Filter>Header Files\BackEnd</Filter>
     </ClInclude>
   </ItemGroup>

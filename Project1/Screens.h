@@ -1,11 +1,31 @@
 #pragma once
 #include "Zones.h"
-#include "Time.h"
-#include "React.h"
 
-enum Screen { Home = 0, R_Login, R_Home, R_Menu, Quit};
+enum Screen { Home = 0, R_Login, R_Home, R_Menu, R_NewOrder, Not_Found_404, Quit};
 static int screen = Home;
 
-void HomeScreen(int& screen);
+class InterScreensVars {
+public:
+	vector<bool> isActive;
+	Menu* currertMenu;
+	Item* currentItem;
+	Order* currentOrder;
 
-void RLogin(int& screen);
+	InterScreensVars();
+	void ClearAll();
+	void ClearCurrentItem();
+	void ClearCurrentOrder();
+};
+
+static InterScreensVars interScreensVars;
+static Sale tempSale;
+
+void HomeScreen(int& screen);
+void NotFound404(int& screen);
+void TestScreen(int& screen, Core& system);
+
+void RLogin(int& screen, Core& system);
+void RHome(int& screen, Core& system);
+void RMenu(int& screen, Core& system);
+void RConfirm(int screen, Core& system);
+void NewOrder(int& screen, Core& system);

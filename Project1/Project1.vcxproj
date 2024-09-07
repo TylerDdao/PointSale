@@ -127,13 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Communication.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="FileHandling.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Order.cpp" />
-    <ClCompile Include="Ramdomizer.cpp" />
+    <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="React.cpp" />
     <ClCompile Include="Sale.cpp" />
     <ClCompile Include="Screens.cpp" />
@@ -143,13 +145,15 @@
     <ClCompile Include="Zones.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Communication.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="FileHandling.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Order.h" />
-    <ClInclude Include="Ramdomizer.h" />
+    <ClInclude Include="Randomizer.h" />
     <ClInclude Include="React.h" />
     <ClInclude Include="Sale.h" />
     <ClInclude Include="Screens.h" />

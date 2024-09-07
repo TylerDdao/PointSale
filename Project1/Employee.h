@@ -3,10 +3,21 @@
 #include <iostream>
 
 using namespace std;
+
+enum Department { Unknown = 0, Manager, Cashier };
+
 class Employee
 {
-	int id;
+	string id;
 	string name;
-	int deparment;
+	Department deparment;
+
+public:
+	Employee* next;
+
+	Employee();
+	Employee(string id, string name, Department department);
+	string GetName();
+	string GetId();
 };
 

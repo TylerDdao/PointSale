@@ -1,4 +1,4 @@
-#include "Ramdomizer.h"
+#include "Randomizer.h"
 
 int GenerateId()
 {

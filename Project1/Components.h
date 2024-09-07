@@ -14,15 +14,16 @@ using namespace std;
 #define INT 4
 #define FLOAT 5
 
-void DrawCurrentTime(float posX, float posY, int fontSize, Color tColor);
+void DrawCurrentTime(int posX, int posY, int fontSize, Color tColor);
 
 void DrawRec(Rectangle rec, Color bColor, Color lColor);
-void DrawTextOnRec(Rectangle rec, const char* text, float fontSize, Color tColor, int align);
-void DrawTextOnRec(Rectangle rec, float posY, const char* text, float fontSize, Color tColor, int align);
+void DrawRec(Rectangle rec, const char* text, Color bColor, Color lColor, Color tColor, int fontSize, int align);
+void DrawTextOnRec(Rectangle rec, const char* text, int fontSize, Color tColor, int align);
+void DrawTextOnRec(Rectangle rec, int posY, const char* text, int fontSize, Color tColor, int align);
 
-void DrawInputField(Rectangle rec, const char* boxTitle, string& savedText, Color bColor, Color lColor, Color tColor, Color titleColor, int fontSize, int titleSize, int MaxChars, InputField& inputField);
-void DrawInputField(Rectangle rec, const char* boxTitle, int& savedInt, Color bColor, Color lColor, Color tColor, Color titleColor, int fontSize, int titleSize, int MaxChars, InputField& inputField);
-void DrawInputField(Rectangle rec, const char* boxTitle, float& savedFloat, Color bColor, Color lColor, Color tColor, Color titleColor, int fontSize, int titleSize, int MaxChars, InputField& inputField);
+void DrawInputField(Rectangle rec, string& savedText, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField);
+void DrawInputField(Rectangle rec, int& savedInt, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField);
+void DrawInputField(Rectangle rec, float& savedFloat, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField);
 bool IsNumberOrDecimal(const char* str);
-void DrawCharIndicator(float posX, float posY, int fontSize, Color tColor, InputField inputField, int maxChar);
+void DrawCharIndicator(int posX, int posY, int fontSize, Color tColor, InputField inputField, int maxChar);
 

@@ -1,9 +1,9 @@
 #include "Components.h"
 
-void DrawCurrentTime(float posX, float posY, int fontSize, Color tColor)
+void DrawCurrentTime(int posX, int posY, int fontSize, Color tColor)
 {
     string currentTime = GetCurrentDateTime();
-    DrawText(TextFormat("%s - %d/%d/%d", ExtractTime(currentTime).c_str(), ExtractMonth(currentTime), ExtractDay(currentTime), ExtractYear(currentTime)), 0, 0, 50, BLACK);
+    DrawText(TextFormat("%s - %d/%d/%d", ExtractTime(currentTime).c_str(), ExtractMonth(currentTime), ExtractDay(currentTime), ExtractYear(currentTime)), posX, posY, fontSize, BLACK);
 }
 
 void DrawRec(Rectangle rec,Color bColor, Color lColor)
@@ -12,7 +12,23 @@ void DrawRec(Rectangle rec,Color bColor, Color lColor)
 	DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, lColor);
 }
 
-void DrawTextOnRec(Rectangle rec, const char* text,float fontSize, Color tColor, int align)
+void DrawRec(Rectangle rec, const char* text, Color bColor, Color lColor, Color tColor, int fontSize, int align)
+{
+    DrawRectangleRec(rec, bColor);
+    DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, lColor);
+    Vector2 textDimension = MeasureTextEx(GetFontDefault(), text, fontSize, 1);
+    if (align == LEFT) {
+        DrawText(text, rec.x + 5, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
+    }
+    else if (align == CENTER) {
+        DrawText(text, (rec.x + (rec.width / 2)) - (textDimension.x / 2), (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
+    }
+    else if (align == RIGHT) {
+        DrawText(text, (rec.x + rec.width) - textDimension.x - 5, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
+    }
+}
+
+void DrawTextOnRec(Rectangle rec, const char* text, int fontSize, Color tColor, int align)
 {
 	Vector2 textDimension = MeasureTextEx(GetFontDefault(), text, fontSize, 1);
 	if (align == LEFT) {
@@ -22,11 +38,11 @@ void DrawTextOnRec(Rectangle rec, const char* text,float fontSize, Color tColor,
 		DrawText(text, (rec.x +(rec.width / 2)) - (textDimension.x / 2), (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
 	}
 	else if (align == RIGHT) {
-		DrawText(text, (rec.x + rec.width) - textDimension.x, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
+		DrawText(text, (rec.x + rec.width) - textDimension.x -5, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
 	}
 }
 
-void DrawTextOnRec(Rectangle rec, float posY, const char* text, float fontSize, Color tColor, int align)
+void DrawTextOnRec(Rectangle rec, int posY, const char* text, int fontSize, Color tColor, int align)
 {
 	Vector2 textDimension = MeasureTextEx(GetFontDefault(), text, fontSize, 1);
 	if (align == LEFT) {
@@ -36,14 +52,12 @@ void DrawTextOnRec(Rectangle rec, float posY, const char* text, float fontSize, 
 		DrawText(text, (rec.x + (rec.width / 2)) - (textDimension.x / 2), posY, fontSize, tColor);
 	}
 	else if (align == RIGHT) {
-		DrawText(text, (rec.x + rec.width) - textDimension.x, posY, fontSize, tColor);
+		DrawText(text, (rec.x + rec.width) - textDimension.x-5, posY, fontSize, tColor);
 	}
 }
 
-void DrawInputField(Rectangle rec, const char* boxTitle, string& savedText, Color bColor, Color lColor, Color tColor, Color titleColor, int fontSize, int titleSize, int MaxChars, InputField& inputField)
+void DrawInputField(Rectangle rec, string& savedText, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField)
 {
-    Vector2 titleDimension = MeasureTextEx(GetFontDefault(), boxTitle, titleSize, 1);
-
     // Check if mouse is over the box
     bool mouseOver = CheckCollisionPointRec(GetMousePosition(), rec);
 
@@ -58,7 +72,6 @@ void DrawInputField(Rectangle rec, const char* boxTitle, string& savedText, Colo
     // Draw the box
     DrawRectangle(rec.x, rec.y, rec.width, rec.height, bColor);
     DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, inputField.isActive ? RED : lColor);
-    DrawText(boxTitle, rec.x, rec.y - titleDimension.y, 20, tColor);
 
     // Handle input only if active
     if (inputField.isActive) {
@@ -89,9 +102,8 @@ void DrawInputField(Rectangle rec, const char* boxTitle, string& savedText, Colo
     DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, BLACK);
 }
 
-void DrawInputField(Rectangle rec, const char* boxTitle, int& savedInt,Color bColor, Color lColor, Color tColor, Color titleColor, int fontSize, int titleSize, int MaxChars, InputField& inputField)
+void DrawInputField(Rectangle rec, int& savedInt,Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField)
 {
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), boxTitle, 20, 1);
     // Check if mouse is over the box
     bool mouseOver = CheckCollisionPointRec(GetMousePosition(), rec);
 
@@ -105,7 +117,6 @@ void DrawInputField(Rectangle rec, const char* boxTitle, int& savedInt,Color bCo
     // Draw the box
     DrawRectangle(rec.x, rec.y, rec.width, rec.height, bColor);
     DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, inputField.isActive ? RED : lColor);
-    DrawText(boxTitle, rec.x, rec.y - textSize.y, 20, tColor);
 
     // Handle input only if active
     if (inputField.isActive) {
@@ -135,9 +146,7 @@ void DrawInputField(Rectangle rec, const char* boxTitle, int& savedInt,Color bCo
     DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, BLACK);
 }
 
-void DrawInputField(Rectangle rec, const char* boxTitle, float& savedFloat, Color bColor, Color lColor, Color tColor, Color titleColor, int fontSize, int titleSize, int MaxChars, InputField& inputField) {
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), boxTitle, 20, 1);
-
+void DrawInputField(Rectangle rec, float& savedFloat, Color bColor, Color lColor, Color tColor, int fontSize,int MaxChars, InputField& inputField) {
     // Check if mouse is over the box
     bool mouseOver = CheckCollisionPointRec(GetMousePosition(), rec);
 
@@ -150,9 +159,8 @@ void DrawInputField(Rectangle rec, const char* boxTitle, float& savedFloat, Colo
     }
 
     // Draw the box
-    DrawRectangle(rec.x, rec.y, rec.width, rec.height, LIGHTGRAY);
-    DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, inputField.isActive ? RED : BLACK);
-    DrawText(boxTitle, rec.x, rec.y - textSize.y, 20, BLACK);
+    DrawRectangle(rec.x, rec.y, rec.width, rec.height, bColor);
+    DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, inputField.isActive ? RED : lColor);
 
     // Handle input only if active
     if (inputField.isActive) {
@@ -168,7 +176,7 @@ void DrawInputField(Rectangle rec, const char* boxTitle, float& savedFloat, Colo
         }
         else {
             int key = GetCharPressed();
-            if (key != 0 && inputField.textLength < MAX_CHARS) {
+            if (key != 0 && inputField.textLength < MaxChars) {
                 if (isdigit(key)) {
                     inputField.inputText[inputField.textLength++] = (char)key;
                     inputField.inputText[inputField.textLength] = '\0';
@@ -191,7 +199,7 @@ void DrawInputField(Rectangle rec, const char* boxTitle, float& savedFloat, Colo
     }
 
     // Draw the input text
-    DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, BLACK);
+    DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, tColor);
 }
 
 bool IsNumberOrDecimal(const char* str) {
@@ -223,7 +231,7 @@ bool IsNumberOrDecimal(const char* str) {
     return true;
 }
 
-void DrawCharIndicator(float posX, float posY, int fontSize, Color tColor, InputField inputField, int maxChar)
+void DrawCharIndicator(int posX, int posY, int fontSize, Color tColor, InputField inputField, int maxChar)
 {
     if (inputField.textLength < maxChar) {
         DrawText(TextFormat("%d/%d", maxChar - inputField.textLength, maxChar), posX, posY, fontSize, tColor);
