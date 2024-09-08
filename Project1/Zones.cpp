@@ -233,7 +233,12 @@ void OrderListZone(int posX, int posY, Core system, DisplayVars& orderListVars, 
 	}
 	orderListVars.remainder = saleTemp.GetTotalOrders() % 4;
 	if (orderListVars.remainder == 0) {
-		orderListVars.totalPage = saleTemp.GetTotalOrders() / 4;
+		if (saleTemp.GetTotalOrders() <= 4) {
+			orderListVars.totalPage = 1;
+		}
+		else {
+			orderListVars.totalPage = saleTemp.GetTotalOrders() / 4;
+		}
 	}
 	else
 	{
@@ -261,7 +266,7 @@ void OrderListZone(int posX, int posY, Core system, DisplayVars& orderListVars, 
 		}
 	}
 	else if (orderListVars.currentPage == orderListVars.totalPage) {
-		if (orderListVars.remainder == 0) {
+		if (orderListVars.remainder == 0 && saleTemp.GetTotalOrders() > 0) {
 			for (int i = 0; i < 4; i++) {
 				Rectangle orderButton = { posX + 5, posY + 282 + i * (60), 400, 50 };
 				if (saleTemp.GetOrder(orderListVars.count)->GetPrice() != system.SearchItem(saleTemp.GetOrder(orderListVars.count)->GetItemId())->GetPrice() * saleTemp.GetOrder(orderListVars.count)->GetQuantity()) {
@@ -287,7 +292,7 @@ void OrderListZone(int posX, int posY, Core system, DisplayVars& orderListVars, 
 				if (saleTemp.GetOrder(orderListVars.count)->GetPrice() != system.SearchItem(saleTemp.GetOrder(orderListVars.count)->GetItemId())->GetPrice() * saleTemp.GetOrder(orderListVars.count)->GetQuantity()) {
 					DrawRec(orderButton, YELLOW, BLACK);
 					float discountedAmount = saleTemp.GetOrder(orderListVars.count)->GetPrice() - system.SearchItem(saleTemp.GetOrder(orderListVars.count)->GetItemId())->GetPrice() * saleTemp.GetOrder(orderListVars.count)->GetQuantity();
-					DrawTextOnRec(orderButton, TextFormat("%s: $%.2f x %d = $%.2f ($%.2f)", system.SearchItem(saleTemp.GetOrder(orderListVars.count)->GetItemId())->GetId().c_str(), system.SearchItem(saleTemp.GetOrder(orderListVars.count)->GetItemId())->GetPrice(), saleTemp.GetOrder(orderListVars.count)->GetQuantity(), saleTemp.GetOrder(orderListVars.count)->GetPrice(), discountedAmount), 20, BLACK, LEFT);
+					DrawTextOnRec(orderButton, TextFormat("%s: $%.2f x %d = $%.2f ($%.2f)", saleTemp.GetOrder(orderListVars.count)->GetItemId().c_str(), system.SearchItem(saleTemp.GetOrder(orderListVars.count)->GetItemId())->GetPrice(), saleTemp.GetOrder(orderListVars.count)->GetQuantity(), saleTemp.GetOrder(orderListVars.count)->GetPrice(), discountedAmount), 20, BLACK, LEFT);
 				}
 				else {
 					DrawRec(orderButton, WHITE, BLACK);
@@ -300,6 +305,12 @@ void OrderListZone(int posX, int posY, Core system, DisplayVars& orderListVars, 
 				orderListVars.count++;
 			}
 		}
+	}
+	if (IsButtonClicked(prevButton, MOUSE_BUTTON_LEFT)&& orderListVars.currentPage>1) {
+		orderListVars.currentPage--;
+	}
+	if (IsButtonClicked(nextButton, MOUSE_BUTTON_LEFT) && orderListVars.currentPage < orderListVars.totalPage) {
+		orderListVars.currentPage++;
 	}
 	DrawRectangle(posX, posY+615, 205, 10, WHITE);
 	DrawText(TextFormat("Sub Total: $%.2f", saleTemp.GetTotal()), posX + 5, posY + 625, 30, BLACK);

@@ -49,6 +49,7 @@ string Sale::GetSaleTime()
 bool Sale::SetSale(string time, int id)
 {
 	this->saleTime = GetCurrentDateTime();
+	this->id = id;
 	return true;
 }
 
@@ -68,41 +69,49 @@ bool Sale::AddOrder(Order newOrder)
 	if (ptr == nullptr) {
 		return false;
 	}
-	if (orderList == nullptr){
-		orderList = ptr;
-		this->total = total + newOrder.GetPrice();
-		return true;
-	}
-	else {
-		Order* ptr2 = orderList;
-		while (ptr2->next != nullptr) {
-			if (ptr2->GetItemId() == ptr->GetItemId() && (ptr2->GetPrice()/ptr2->GetQuantity()) == (ptr->GetPrice() / ptr->GetQuantity())) {
-				ptr2->Increase(newOrder.GetQuantity());
-				this->total = total + newOrder.GetPrice();
-				return true;
-			}
-			ptr2 = ptr2->next;
-		}
-		if (ptr2->GetItemId() == ptr->GetItemId() && (ptr2->GetPrice() / ptr2->GetQuantity()) == (ptr->GetPrice() / ptr->GetQuantity())) {
-			ptr2->Increase(newOrder.GetQuantity());
-			this->total = total + newOrder.GetPrice();
-			return true;
-		}
-		ptr2->next = ptr;
-		this->total = this->total + newOrder.GetPrice();
-		return true;
-	}
+	ptr->next = orderList;
+	orderList = ptr;
+	this->total = total + ptr->GetPrice();
+	return true;
 }
 
-bool Sale::RemoveOrder(Order* currentOrder)
+bool Sale::ModifyOrder(Order currentOrder, Order newOrder)
 {
-	Order* ptr = currentOrder;
-	Order* ptr2 = orderList;
-	while (ptr2->next == ptr) {
-		ptr2 = ptr2->next;
+	Order* ptr = orderList;
+	while (ptr != nullptr) {
+		if (ptr->GetQuantity() == currentOrder.GetQuantity() && ptr->GetPrice() == currentOrder.GetPrice() && ptr->GetItemId() == currentOrder.GetItemId() && ptr->GetNote() == currentOrder.GetNote()) {
+			break;
+		}
+		ptr = ptr->next;
 	}
-	ptr2->next = ptr->next;
-	delete ptr;
+	ptr->ModifyOrder(newOrder);
+	this->total = total - currentOrder.GetPrice() + newOrder.GetPrice();
+	return true;
+}
+
+bool Sale::RemoveOrder(Order currentOrder)
+{
+	Order* ptr = orderList;
+	while (ptr != nullptr) {
+		if (ptr->GetQuantity() == currentOrder.GetQuantity() && ptr->GetPrice() == currentOrder.GetPrice() && ptr->GetItemId() == currentOrder.GetItemId() && ptr->GetNote() == currentOrder.GetNote()) {
+			break;
+		}
+		ptr = ptr->next;
+	}
+	if (ptr != nullptr) {
+		if (orderList == ptr) {
+			orderList = ptr->next;
+		}
+		else {
+			Order* ptr2 = orderList;
+			while (ptr2->next != ptr) {
+				ptr2 = ptr2->next;
+			}
+			ptr2->next = ptr->next;
+			delete ptr;
+		}
+	}
+	this->total = total - ptr->GetPrice();
 	return true;
 }
 
@@ -134,6 +143,11 @@ Order* Sale::GetOrder(int index)
 		ptr = ptr->next;
 	}
 	return ptr;
+}
+
+Order* Sale::GetOrderHead()
+{
+	return orderList;
 }
 
 bool Sale::DeleteItems()

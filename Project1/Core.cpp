@@ -51,6 +51,18 @@ Item* Core::SearchItem(string id)
 	return nullptr;
 }
 
+bool Core::AddSale(Sale newSale)
+{
+	Sale* ptr = new Sale(newSale);
+	if (ptr == nullptr) {
+
+		return false;
+	}
+	ptr->next = saleList;
+	saleList = ptr;
+	return true;
+}
+
 bool Core::AddMenu(Menu newMenu)
 {
 	Menu* ptr = new Menu(newMenu);
@@ -120,25 +132,6 @@ bool Core::AddEmployee(Employee newEmployee)
 		ptr2->next = ptr;
 	}
 	return true;
-}
-
-bool Core::VerifyEmployeeId(string fileName, string idInput)
-{
-	ifstream fp;
-	fp.open(fileName);
-	if (!fp.is_open()) {
-		return false;
-	}
-	string line = "\0";
-	while (getline(fp, line)) {
-		string id = "\0";
-		istringstream isLine(line);
-		getline(isLine, id, ':');
-		if (id == idInput) {
-			return true;
-		}
-	}
-    return false;
 }
 
 bool Core::SetTax(float value)

@@ -3,7 +3,7 @@
 Order::Order()
 {
 	this->item = "\0";
-	this->quantity = quantity;
+	this->quantity = 0;
 	this->next = nullptr;
 	this->price = 0;
 	this->note = "\0";
@@ -16,6 +16,14 @@ Order::Order(string itemId, int quantity,float price, string note)
 	this->next = nullptr;
 	this->price = price;
 	this->note = "\0";
+}
+
+bool Order::ModifyOrder(Order newOrder)
+{
+	this->quantity = newOrder.GetQuantity();
+	this->note = newOrder.GetNote();
+	this->price = newOrder.GetPrice();
+	return true;
 }
 
 bool Order::Increase(int value)

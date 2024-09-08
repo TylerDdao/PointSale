@@ -2,7 +2,6 @@
 #include "Employee.h"
 #include "Menu.h"
 #include "Sale.h"
-#include "FileHandling.h"
 class Core
 {
 private:
@@ -26,6 +25,8 @@ public:
 
 	Item* SearchItem(string id);
 
+	bool AddSale(Sale newSale);
+
 	bool AddMenu(Menu newMenu);
 	int GetTotalMenu();
 	int GetTotalEmployee();
@@ -33,7 +34,6 @@ public:
 
 	bool AddEmployee(Employee newEmployee);
 
-	bool VerifyEmployeeId(string fileName, string idInput);
 	bool SetTax(float value);
 	float GetTax();
 

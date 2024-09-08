@@ -31,7 +31,8 @@ public:
 	bool ClearSale();
 	
 	bool AddOrder(Order newOrder);
-	bool RemoveOrder(Order* currentOrder);
+	bool ModifyOrder(Order currentOrder, Order newOrder);
+	bool RemoveOrder(Order currentOrder);
 
 	int GetTotalOrders();
 
@@ -39,6 +40,7 @@ public:
 	string GetPayment();
 
 	Order* GetOrder(int index);
+	Order* GetOrderHead();
 	bool DeleteItems();
 };
 
