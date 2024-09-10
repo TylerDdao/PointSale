@@ -127,16 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Communication.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="FileHandling.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ManagerScreens.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="React.cpp" />
+    <ClCompile Include="RegisterScreens.cpp" />
     <ClCompile Include="Sale.cpp" />
     <ClCompile Include="Screens.cpp" />
     <ClCompile Include="SharedResources.cpp" />
@@ -145,16 +146,17 @@
     <ClCompile Include="Zones.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communication.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="FileHandling.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ManagerScreens.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Randomizer.h" />
     <ClInclude Include="React.h" />
+    <ClInclude Include="RegisterScreens.h" />
     <ClInclude Include="Sale.h" />
     <ClInclude Include="Screens.h" />
     <ClInclude Include="SharedResources.h" />

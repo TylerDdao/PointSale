@@ -20,7 +20,7 @@ void DrawRec(Rectangle rec, Color bColor, Color lColor);
 void DrawRec(Rectangle rec, const char* text, Color bColor, Color lColor, Color tColor, int fontSize, int align);
 void DrawTextOnRec(Rectangle rec, const char* text, int fontSize, Color tColor, int align);
 void DrawTextOnRec(Rectangle rec, int posY, const char* text, int fontSize, Color tColor, int align);
-
+void DrawItemBox(Rectangle rec, Color bColor, Color lColor, Color tColor, int fontSize, Item item);
 void DrawInputField(Rectangle rec, string& savedText, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField);
 void DrawInputField(Rectangle rec, int& savedInt, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField);
 void DrawInputField(Rectangle rec, float& savedFloat, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField);

@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include <iostream>
 #include "Screens.h"
+#include "RegisterScreens.h"
+#include "ManagerScreens.h"
 #include "Core.h"
 #include "Randomizer.h"
 #include "FileHandling.h"
@@ -13,13 +15,14 @@ int main() {
     srand(time(NULL));
     const int screenWidth = 1366;
     const int screenHeight = 768;
-    int screen = Home;
+    int screen = Login_Site;
     InitWindow(screenWidth, screenHeight, "PointSale (version 1.0)");
     SetTargetFPS(60);
     bool running = true;
     Core system;
-    LoadMenus("Test.txt", system);
+    LoadMenus("Menu.txt", system);
     LoadSales("Sale.txt", system);
+    LoadEmployees("Employee.txt", system);
     //system.SetTax(13);
     //Menu menu1("M1");
     //Menu menu2("M2");
@@ -46,8 +49,8 @@ int main() {
     //Item item8("Item 8", "I8", 10);
     //system.GetMenu(0)->AddItem(item8);
     //system.SetCurrentWorking("M161105");
-    Employee me("M161105", "Tyler Dao", Manager);
-    system.AddEmployee(me);
+    //Employee me("M161105", "Tyler Dao", "Manager");
+    //system.AddEmployee(me);
 
     //Order newOrder2(item2, 2);
     //saleTemp.AddOrder(newOrder2);
@@ -59,12 +62,12 @@ int main() {
         switch (screen)
         {
         case Home: {
-            HomeScreen(screen);
+            /*HomeScreen(screen);*/
             /*TestScreen(screen, system);*/
             break;
         }
-        case R_Login: {
-            RLogin(screen, system);
+        case Login_Site: {
+            Login(screen, system);
             break;
         }
         case R_Home: {
@@ -87,13 +90,34 @@ int main() {
             RConfirm(screen, system);
             break;
         }
+        case M_Home: {
+            MHome(screen, system);
+            break;
+        }
+        case M_Menu_List: {
+            MMenuList(screen, system);
+            break;
+        }
+        case M_Menu_Edit: {
+            MMenuEdit(screen, system);
+            break;
+        }
+        case M_Edit_Menu_Id: {
+            MEditMenuId(screen, system);
+            break;
+        }
+        case M_Item_Edit: {
+            MItemEdit(screen, system);
+            break;
+        }
         case Not_Found_404: {
             NotFound404(screen);
             break;
         }
         case Quit: {
-            SaveMenus("Test.txt", system);
+            SaveMenus("Menu.txt", system);
             SaveSales("Sale.txt", system);
+            SaveEmployees("Employee.txt", system);
             system.DeleteAll();
             running = false;
             break;

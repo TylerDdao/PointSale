@@ -72,8 +72,11 @@
     <ClCompile Include="FileHandling.cpp">
       <Filter>Source Files\BackEnd</Filter>
     </ClCompile>
-    <ClCompile Include="Communication.cpp">
-      <Filter>Source Files\BackEnd</Filter>
+    <ClCompile Include="ManagerScreens.cpp">
+      <Filter>Source Files\FronEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterScreens.cpp">
+      <Filter>Source Files\FronEnd</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,8 +122,11 @@
     <ClInclude Include="FileHandling.h">
       <Filter>Header Files\BackEnd</Filter>
     </ClInclude>
-    <ClInclude Include="Communication.h">
-      <Filter>Header Files\BackEnd</Filter>
+    <ClInclude Include="ManagerScreens.h">
+      <Filter>Header Files\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="RegisterScreens.h">
+      <Filter>Header Files\FrontEnd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

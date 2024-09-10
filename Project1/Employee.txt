@@ -1,0 +1,2 @@
+Manager:M161105:Tyler Dao;
+Cashier:C161105:Tyler Dao;

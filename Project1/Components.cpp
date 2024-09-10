@@ -56,6 +56,15 @@ void DrawTextOnRec(Rectangle rec, int posY, const char* text, int fontSize, Colo
 	}
 }
 
+void DrawItemBox(Rectangle rec, Color bColor, Color lColor, Color tColor,int fontSize, Item item)
+{
+    DrawRectangleRec(rec, bColor);
+    DrawRectangleLines(rec.x, rec.y, rec.width, rec.height, lColor);
+    Vector2 textSize = MeasureTextEx(GetFontDefault(), item.GetName().c_str(), fontSize, 1);
+    DrawText(TextFormat("%s", item.GetName().c_str()), rec.x + 5, rec.y + 5, fontSize, tColor);
+    DrawText(TextFormat("%s | $%.3f", item.GetId().c_str(), item.GetPrice()), rec.x + 5, rec.y + 5+textSize.y, fontSize, tColor);
+}
+
 void DrawInputField(Rectangle rec, string& savedText, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField)
 {
     // Check if mouse is over the box
@@ -94,9 +103,9 @@ void DrawInputField(Rectangle rec, string& savedText, Color bColor, Color lColor
     else if (!inputField.isActive && inputField.textLength != 0) {
         savedText = inputField.inputText;
     }
-    else {
-        savedText = "";
-    }
+    //else {
+    //    savedText = "";
+    //}
 
     // Draw the input text
     DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, BLACK);
@@ -138,9 +147,9 @@ void DrawInputField(Rectangle rec, int& savedInt,Color bColor, Color lColor, Col
     else if (!inputField.isActive && inputField.textLength != 0) {
         savedInt = stoi(inputField.inputText);
     }
-    else {
-        savedInt = 0;
-    }
+    //else {
+    //    savedInt = 0;
+    //}
 
     // Draw the input text
     DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, BLACK);
@@ -194,9 +203,9 @@ void DrawInputField(Rectangle rec, float& savedFloat, Color bColor, Color lColor
             savedFloat = atof(inputField.inputText);
         }
     }
-    else {
-        savedFloat = 0.0f;
-    }
+    //else {
+    //    savedFloat = 0.0f;
+    //}
 
     // Draw the input text
     DrawText(inputField.inputText, rec.x + 5, rec.y + 5, fontSize, tColor);

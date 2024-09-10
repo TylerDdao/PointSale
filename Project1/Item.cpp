@@ -16,6 +16,14 @@ Item::Item(string name, string id, float price)
 	this->id = id;
 }
 
+bool Item::ModifyItem(string name, string id, float price)
+{
+	this->name = name;
+	this->id = id;
+	this->price = price;
+	return true;
+}
+
 string Item::GetName()
 {
 	return name;

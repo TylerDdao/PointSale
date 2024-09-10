@@ -14,6 +14,12 @@ Menu::Menu(string id)
 	this->id = id;
 }
 
+bool Menu::ModifyId(string newId)
+{
+	this->id = newId;
+	return true;
+}
+
 bool Menu::AddItem(Item newItem)
 {
 	Item* ptr = new Item(newItem);
@@ -73,6 +79,35 @@ Item* Menu::SearchItem(string id)
 		ptr = ptr->next;
 	}
 	return nullptr;
+}
+
+bool Menu::RemoveItem(string id)
+{
+	Item* ptr = itemList;
+	while (ptr != nullptr) {
+		if (ptr->GetId() == id) {
+			break;
+		}
+		ptr = ptr->next;
+	}
+	if (ptr == nullptr) {
+		return false;
+	}
+	if (itemList == ptr) {
+		if (ptr->next != nullptr) {
+			itemList = ptr->next;
+		}
+		delete ptr;
+	}
+	else {
+		Item* ptr2 = itemList;
+		while (ptr2->next != ptr) {
+			ptr2 = ptr2->next;
+		}
+		ptr2->next = ptr->next;
+		delete ptr;
+	}
+	return true;
 }
 
 bool Menu::DeleteItems()

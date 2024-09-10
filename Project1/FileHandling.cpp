@@ -141,3 +141,41 @@ bool LoadSales(string fileName, Core& system)
 	}
 	return true;
 }
+
+bool SaveEmployees(string fileName, Core system)
+{
+	ofstream fp;
+	fp.open(fileName);
+	if (!fp.is_open()) {
+		return false;
+	}
+	Employee* ptr = system.GetEmployeeHead();
+	while (ptr != nullptr) {
+		fp << ptr->GetDepartment() << ":" << ptr->GetId() << ":" << ptr->GetName()<<";" << endl;
+		ptr = ptr->next;
+	}
+	return true;
+}
+
+bool LoadEmployees(string fileName, Core& system)
+{
+	ifstream fp;
+	fp.open(fileName);
+	if (!fp.is_open()) {
+		return false;
+	}
+	string line = "\0";
+	while (getline(fp, line)) {
+		istringstream isLine(line);
+		string department = "\0";
+		string id = "\0";
+		string name = "\0";
+		getline(isLine, department, ':');
+		getline(isLine, id, ':');
+		getline(isLine, name, ';');
+
+		Employee newEmployee(id, name, department);
+		system.AddEmployee(newEmployee);
+	}
+	return true;
+}

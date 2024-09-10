@@ -51,6 +51,18 @@ Item* Core::SearchItem(string id)
 	return nullptr;
 }
 
+Employee* Core::SearchEmployee(string id)
+{
+	Employee* ptr = employeeList;
+	while (ptr != nullptr) {
+		if (ptr->GetId() == id) {
+			return ptr;
+		}
+		ptr = ptr->next;
+	}
+	return nullptr;
+}
+
 bool Core::AddSale(Sale newSale)
 {
 	Sale* ptr = new Sale(newSale);
@@ -192,6 +204,18 @@ bool Core::DeleteAll()
 	DeleteMenuList();
 	DeleteSaleList();
 	return true;
+}
+
+bool Core::EmployeeIdVerify(string id)
+{
+	Employee* ptr = employeeList;
+	while (ptr != nullptr) {
+		if (ptr->GetId() == id) {
+			return true;
+		}
+		ptr = ptr->next;
+	}
+	return false;
 }
 
 string Core::GetEmployeeName(string id)

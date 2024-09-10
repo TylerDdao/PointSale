@@ -11,7 +11,7 @@ public:
 	Menu* next;
 	Menu();
 	Menu(string id);
-
+	bool ModifyId(string newId);
 	bool AddItem(Item newItem);
 
 	int GetTotalOfItem();
@@ -19,7 +19,7 @@ public:
 	Item* GetItemHead();
 	Item* GetItem(int index);
 	Item* SearchItem(string id);
-
+	bool RemoveItem(string id);
 	bool DeleteItems();
 };
 

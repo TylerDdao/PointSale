@@ -48,3 +48,33 @@ bool DefaultVars::SetTax(float value)
     this->taxRate = value;
     return true;
 }
+
+InterScreensVars::InterScreensVars()
+{
+    for (size_t i = 0; i < isActive.size(); i++) {
+        isActive.pop_back();
+    }
+    currertMenu = nullptr;
+    currentItem = nullptr;
+    currentOrder = nullptr;
+}
+
+void InterScreensVars::ClearAll()
+{
+    for (size_t i = 0; i < isActive.size(); i++) {
+        isActive.pop_back();
+    }
+    currertMenu = nullptr;
+    currentItem = nullptr;
+    currentOrder = nullptr;
+}
+
+void InterScreensVars::ClearCurrentItem()
+{
+    currentItem = nullptr;
+}
+
+void InterScreensVars::ClearCurrentOrder()
+{
+    currentOrder = nullptr;
+}

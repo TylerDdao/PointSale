@@ -24,6 +24,7 @@ public:
 	Menu* GetMenu(int index);
 
 	Item* SearchItem(string id);
+	Employee* SearchEmployee(string id);
 
 	bool AddSale(Sale newSale);
 
@@ -41,4 +42,9 @@ public:
 	bool DeleteSaleList();
 	bool DeleteEmployeeList();
 	bool DeleteAll();
+
+	bool EmployeeIdVerify(string id);
+
+	//Communication
+
 };

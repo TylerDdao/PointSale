@@ -13,6 +13,7 @@ public:
 	Item();
 	Item(string name, string id, float price);
 
+	bool ModifyItem(string name, string id, float price);
 	string GetName();
 	string GetId();
 	float GetPrice();

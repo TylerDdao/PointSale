@@ -4,20 +4,22 @@
 
 using namespace std;
 
-enum Department { Unknown = 0, Manager, Cashier };
+#define MANAGER "Manager"
+#define CASHIER "Cashier"
 
 class Employee
 {
 	string id;
 	string name;
-	Department deparment;
+	string deparment;
 
 public:
 	Employee* next;
 
 	Employee();
-	Employee(string id, string name, Department department);
+	Employee(string id, string name, string department);
 	string GetName();
 	string GetId();
+	string GetDepartment();
 };
 

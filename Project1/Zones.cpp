@@ -341,3 +341,92 @@ void NewOrderZone(int posX, int posY, Core system, Sale& saleTemp, int quantity,
 	DrawText("Promotion ($)", posX + 600, posY + 239, 30, BLACK);
 	DrawText("Note", posX, posY + 379, 30, BLACK);
 }
+
+void MenuListVerticalZone(int posX, int posY, Core system, DisplayVars& menuListVars)
+{
+	Rectangle prevButton = { posX, posY+ 404, 100,50 };
+	Rectangle nextButton = { posX + 710, posY+404, 100,50 };
+	DrawRec(prevButton, "<-", WHITE, BLACK, BLACK, 30, CENTER);
+	DrawRec(nextButton, "->", WHITE, BLACK, BLACK, 30, CENTER);
+	DrawText(TextFormat("Menu Count: %d", system.GetTotalMenu()), posX, posY, 50, BLACK);
+	if (menuListVars.isActive.size() != (size_t)system.GetTotalMenu()) {
+		for (size_t i = 0; i < menuListVars.isActive.size(); i++) {
+			menuListVars.isActive.pop_back();
+		}
+		for (int i = 0; i < system.GetTotalMenu(); i++) {
+			menuListVars.isActive.push_back(false);
+		}
+	}
+	menuListVars.remainder = system.GetTotalMenu() % 6;
+	if (menuListVars.remainder == 0) {
+		menuListVars.totalPage = system.GetTotalMenu() / 6;
+	}
+	else {
+		menuListVars.totalPage = system.GetTotalMenu() / 6 + 1;
+	}
+	menuListVars.count = (menuListVars.currentPage * 6) - 6;
+
+	if (menuListVars.currentPage < menuListVars.totalPage) {
+		for (int i = 0; i < 3; i++) {
+			Rectangle menuButton = { posX,posY+ 74+(110)*i,400,100};
+			DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE,BLACK,BLACK,40,CENTER);
+			if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
+				fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
+				menuListVars.isActive[menuListVars.count] = true;
+			}
+			menuListVars.count++;
+		}
+		for (int i = 0; i < 3; i++) {
+			Rectangle menuButton = { posX+410,posY + 74 + (110) * i,400,100 };
+			DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 40, CENTER);
+			if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
+				fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
+				menuListVars.isActive[menuListVars.count] = true;
+			}
+			menuListVars.count++;
+		}
+	}
+	else if (menuListVars.currentPage == menuListVars.totalPage) {
+		if (menuListVars.remainder == 0 || menuListVars.remainder > 3) {
+			for (int i = 0; i < 3; i++) {
+				Rectangle menuButton = { posX,posY + 74 + (110) * i,400,100 };
+				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 40, CENTER);
+				if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
+					fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
+					menuListVars.isActive[menuListVars.count] = true;
+				}
+				menuListVars.count++;
+			}
+
+			for (int i = 0; i < menuListVars.remainder-3; i++) {
+				Rectangle menuButton = { posX + 410,posY + 74 + (110) * i,400,100 };
+				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 40, CENTER);
+				if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
+					fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
+					menuListVars.isActive[menuListVars.count] = true;
+				}
+				menuListVars.count++;
+			}
+		}
+		else if (menuListVars.remainder <= 3) {
+			for (int i = 0; i < menuListVars.remainder; i++) {
+				Rectangle menuButton = { posX,posY + 74 + (110) * i,400,100 };
+				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 40, CENTER);
+				if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
+					fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
+					menuListVars.isActive[menuListVars.count] = true;
+				}
+				menuListVars.count++;
+			}
+		}
+	}
+
+	DrawText(TextFormat("%d/%d", menuListVars.currentPage, menuListVars.totalPage), posX+360, posY+421, 50, BLACK);
+
+	if (IsButtonClicked(prevButton, MOUSE_BUTTON_LEFT) && menuListVars.currentPage > 1) {
+		menuListVars.currentPage--;
+	}
+	if (IsButtonClicked(nextButton, MOUSE_BUTTON_LEFT) && menuListVars.currentPage < menuListVars.totalPage) {
+		menuListVars.currentPage++;
+	}
+}

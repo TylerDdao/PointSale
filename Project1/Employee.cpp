@@ -4,11 +4,11 @@ Employee::Employee()
 {
 	this->name = "\0";
 	this->id = "\0";
-	this->deparment = Unknown;
+	this->deparment = "\0";
 	this->next = nullptr;
 }
 
-Employee::Employee(string id, string name, Department department) {
+Employee::Employee(string id, string name, string department) {
 	this->id = id;
 	this->name = name;
 	this->deparment = department;
@@ -23,4 +23,9 @@ string Employee::GetName()
 string Employee::GetId()
 {
 	return id;
+}
+
+string Employee::GetDepartment()
+{
+	return deparment;
 }
