@@ -65,6 +65,14 @@ void DrawItemBox(Rectangle rec, Color bColor, Color lColor, Color tColor,int fon
     DrawText(TextFormat("%s | $%.3f", item.GetId().c_str(), item.GetPrice()), rec.x + 5, rec.y + 5+textSize.y, fontSize, tColor);
 }
 
+void DrawEmployeeBox(int posX, int posY, Color bColor, Color lColor, Color tColor, Employee employee)
+{
+    Rectangle employeeBox = { posX, posY, 400,100 };
+    DrawRec(employeeBox, bColor, lColor);
+    DrawTextOnRec(employeeBox, employeeBox.y+10, TextFormat("ID: %s", employee.GetId().c_str()), 30, tColor, LEFT);
+    DrawTextOnRec(employeeBox, employeeBox.y + 40, TextFormat("Name: %s", employee.GetName().c_str()), 30, tColor, LEFT);
+}
+
 void DrawInputField(Rectangle rec, string& savedText, Color bColor, Color lColor, Color tColor, int fontSize, int MaxChars, InputField& inputField)
 {
     // Check if mouse is over the box

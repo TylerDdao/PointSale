@@ -20,9 +20,33 @@ Sale* Core::GetSaleHead()
     return saleList;
 }
 
+Sale* Core::GetSaleHead(int month, int day, int year)
+{
+	Sale* ptr = saleList;
+	while (ptr != nullptr) {
+		if (ExtractDay(ptr->GetSaleTime()) == day && ExtractMonth(ptr->GetSaleTime()) == month && ExtractYear(ptr->GetSaleTime()) == year) {
+			return ptr;
+		}
+		ptr = ptr->next;
+	}
+	return ptr;
+}
+
 Employee* Core::GetEmployeeHead()
 {
     return employeeList;
+}
+
+Employee* Core::GetEmployeeHead(string department)
+{
+	Employee* ptr = employeeList;
+	while (ptr->GetDepartment() != department) {
+		ptr = ptr->next;
+	}
+	if (ptr == nullptr) {
+		return nullptr;
+	}
+	return ptr;
 }
 
 Menu* Core::GetMenu(int index)
@@ -35,6 +59,40 @@ Menu* Core::GetMenu(int index)
 
 
 
+}
+
+Sale* Core::GetSale(int month, int day, int year, int index)
+{
+	Sale* ptr = saleList;
+	while (ptr != nullptr) {
+		if (ExtractDay(ptr->GetSaleTime()) == day && ExtractMonth(ptr->GetSaleTime()) == month && ExtractYear(ptr->GetSaleTime()) == year) {
+			break;
+		}
+		ptr = ptr->next;
+	}
+	if (ptr == nullptr) {
+		return ptr;
+	}
+	for (int i = 0; i < index; i++) {
+		ptr = ptr->next;
+	}
+	return ptr;
+}
+
+Employee* Core::GetEmployee(string department, int index)
+{
+	int i = 0;
+	Employee* ptr = employeeList;
+	while (ptr != nullptr) {
+		if (ptr->GetDepartment() == department) {
+			i++;
+		}
+		if (i == index) {
+			break;
+		}
+		ptr = ptr->next;
+	}
+	return ptr;
 }
 
 Item* Core::SearchItem(string id)
@@ -73,6 +131,35 @@ bool Core::AddSale(Sale newSale)
 	ptr->next = saleList;
 	saleList = ptr;
 	return true;
+}
+
+bool Core::RemoveSale(int id)
+{
+	Sale* ptr = saleList;
+	while (ptr != nullptr) {
+		if (ptr->GetId() == id) {
+			break;
+		}
+		ptr = ptr->next;
+	}
+	if (ptr == nullptr) {
+		return false;
+	}
+	else if (saleList == ptr) {
+		saleList = ptr->next;
+		delete ptr;
+		return true;
+	}
+	else
+	{
+		Sale* ptr2 = saleList;
+		while (ptr2->next != ptr) {
+			ptr2 = ptr2->next;
+		}
+		ptr2->next = ptr->next;
+		delete ptr;
+		return true;
+	}
 }
 
 bool Core::AddMenu(Menu newMenu)
@@ -116,12 +203,38 @@ int Core::GetTotalEmployee()
 	return count;
 }
 
+int Core::GetTotalEmployee(string department)
+{
+	int count = 0;
+	Employee* ptr = employeeList;
+	while (ptr != nullptr) {
+		if (ptr->GetDepartment() == department) {
+			count++;
+		}
+		ptr = ptr->next;
+	}
+	return count;
+}
+
 int Core::GetTotalSale()
 {
 	int count = 0;
 	Sale* ptr = saleList;
 	while (ptr != nullptr) {
 		count++;
+		ptr = ptr->next;
+	}
+	return count;
+}
+
+int Core::GetTotalSale(int month, int day, int year)
+{
+	int count = 0;
+	Sale* ptr = saleList;
+	while (ptr != nullptr) {
+		if (ExtractDay(ptr->GetSaleTime()) == day && ExtractMonth(ptr->GetSaleTime()) == month && ExtractYear(ptr->GetSaleTime()) == year) {
+			count++;
+		}
 		ptr = ptr->next;
 	}
 	return count;

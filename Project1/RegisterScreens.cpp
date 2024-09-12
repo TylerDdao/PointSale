@@ -43,17 +43,17 @@ void RMenu(int& screen, Core& system)
 		interScreensVars.ClearAll();
 		for (size_t i = 0; i < menuvar.isActive.size(); i++) {
 			if (menuvar.isActive[i] == true) {
-				interScreensVars.currertMenu = system.GetMenu(i);
+				interScreensVars.SetMenu(system.GetMenu(i));
 			}
 		}
 		for (size_t i = 0; i < itemvar.isActive.size(); i++) {
 			if (itemvar.isActive[i] == true) {
-				interScreensVars.currentItem = interScreensVars.currertMenu->GetItem(i);
+				interScreensVars.SetItem(interScreensVars.GetMenu()->GetItem(i));
 			}
 		}
 		for (size_t i = 0; i < ordervar.isActive.size(); i++) {
 			if (ordervar.isActive[i] == true) {
-				interScreensVars.currentOrder = saleTemp.GetOrder(i);
+				interScreensVars.SetOrder(saleTemp.GetOrder(i));
 			}
 		}
 		OrderListZone(0, 0, system, ordervar, saleTemp);
@@ -63,10 +63,10 @@ void RMenu(int& screen, Core& system)
 		DrawRec(cancelButton, "Cancel", RED, BLACK, BLACK, 40, CENTER);
 		DrawRec(eatInButton, "Eat In", GREEN, BLACK, BLACK, 40, CENTER);
 		DrawRec(takeawayButton, "Takeaway", GREEN, BLACK, BLACK, 40, CENTER);
-		if (interScreensVars.currentItem != nullptr) {
+		if (interScreensVars.GetItem() != nullptr) {
 			screen = R_NewOrder;
 		}
-		if (interScreensVars.currentOrder != nullptr) {
+		if (interScreensVars.GetOrder() != nullptr) {
 			screen = R_Current_Order;
 		}
 		if (IsButtonClicked(cancelButton, MOUSE_BUTTON_LEFT)) {
@@ -235,7 +235,7 @@ void RConfirm(int& screen, Core& system)
 
 void EditOrder(int& screen, Core& system)
 {
-	Order currentOrder = *interScreensVars.currentOrder;
+	Order currentOrder = *interScreensVars.GetOrder();
 	DisplayVars ordervar;
 	InputField quantityInput;
 	InputField percentPromotionInput;
@@ -289,7 +289,7 @@ void EditOrder(int& screen, Core& system)
 
 void NewOrder(int& screen, Core& system)
 {
-	Item current = *interScreensVars.currentItem;
+	Item current = *interScreensVars.GetItem();
 	DisplayVars ordervar;
 	InputField quantityInput;
 	InputField percentPromotionInput;

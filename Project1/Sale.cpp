@@ -48,7 +48,7 @@ string Sale::GetSaleTime()
 
 bool Sale::SetSale(string time, int id)
 {
-	this->saleTime = GetCurrentDateTime();
+	this->saleTime = time;
 	this->id = id;
 	return true;
 }

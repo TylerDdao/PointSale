@@ -49,8 +49,8 @@ int main() {
     //Item item8("Item 8", "I8", 10);
     //system.GetMenu(0)->AddItem(item8);
     //system.SetCurrentWorking("M161105");
-    //Employee me("M161105", "Tyler Dao", "Manager");
-    //system.AddEmployee(me);
+    Employee me("M161105", "Tyler Dao", "Manager");
+    system.AddEmployee(me);
 
     //Order newOrder2(item2, 2);
     //saleTemp.AddOrder(newOrder2);
@@ -109,6 +109,17 @@ int main() {
         case M_Item_Edit: {
             MItemEdit(screen, system);
             break;
+        }
+        case M_Search_Sale: {
+            MSearchSale(screen, system);
+            break;
+        }
+        case M_Sale_List: {
+            MSaleList(screen, system);
+            break;
+        }
+        case M_Order_List: {
+            MOrderList(screen, system);
         }
         case Not_Found_404: {
             NotFound404(screen);

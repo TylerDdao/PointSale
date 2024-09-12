@@ -51,22 +51,24 @@ bool DefaultVars::SetTax(float value)
 
 InterScreensVars::InterScreensVars()
 {
-    for (size_t i = 0; i < isActive.size(); i++) {
-        isActive.pop_back();
-    }
     currertMenu = nullptr;
     currentItem = nullptr;
     currentOrder = nullptr;
+    currentSale = nullptr;
+    this->day = 0;
+    this->month = 0;
+    this->year = 0;
 }
 
 void InterScreensVars::ClearAll()
 {
-    for (size_t i = 0; i < isActive.size(); i++) {
-        isActive.pop_back();
-    }
+    this->day = 0;
+    this->month = 0;
+    this->year = 0;
     currertMenu = nullptr;
     currentItem = nullptr;
     currentOrder = nullptr;
+    currentSale = nullptr;
 }
 
 void InterScreensVars::ClearCurrentItem()
@@ -77,4 +79,76 @@ void InterScreensVars::ClearCurrentItem()
 void InterScreensVars::ClearCurrentOrder()
 {
     currentOrder = nullptr;
+}
+
+void InterScreensVars::ClearCurrentSale()
+{
+    currentSale = nullptr;
+}
+
+bool InterScreensVars::SetDate(int day, int month, int year)
+{
+    this->day = day;
+    this->month = month;
+    this->year = year;
+    return true;
+}
+
+bool InterScreensVars::SetItem(Item* ptr)
+{
+    currentItem = ptr;
+    return true;
+}
+
+bool InterScreensVars::SetMenu(Menu* ptr)
+{
+    currertMenu = ptr;
+    return true;
+}
+
+bool InterScreensVars::SetOrder(Order* ptr)
+{
+    currentOrder = ptr;
+    return true;
+}
+
+bool InterScreensVars::SetSale(Sale* ptr)
+{
+    currentSale = ptr;
+    return true;
+}
+
+int InterScreensVars::GetDay()
+{
+    return day;
+}
+
+int InterScreensVars::GetMonth()
+{
+    return month;
+}
+
+int InterScreensVars::GetYear()
+{
+    return year;
+}
+
+Menu* InterScreensVars::GetMenu()
+{
+    return currertMenu;
+}
+
+Item* InterScreensVars::GetItem()
+{
+    return currentItem;
+}
+
+Order* InterScreensVars::GetOrder()
+{
+    return currentOrder;
+}
+
+Sale* InterScreensVars::GetSale()
+{
+    return currentSale;
 }
