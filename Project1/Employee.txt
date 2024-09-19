@@ -1,12 +1,5 @@
 Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
-Manager:M161105:Tyler Dao;
+Cashier:C328800931:Logan Baak;
+Cashier:C329346997:Tyler Dao;
+Manager:M142185524:Logan Baak;
+Manager:M153511049:Calaen Douglas;

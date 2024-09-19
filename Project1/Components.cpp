@@ -1,4 +1,5 @@
 #include "Components.h"
+#include "raylib.h"
 
 void DrawCurrentTime(int posX, int posY, int fontSize, Color tColor)
 {
@@ -21,7 +22,7 @@ void DrawRec(Rectangle rec, const char* text, Color bColor, Color lColor, Color 
         DrawText(text, rec.x + 5, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
     }
     else if (align == CENTER) {
-        DrawText(text, (rec.x + (rec.width / 2)) - (textDimension.x / 2), (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
+        DrawText(text, (rec.x + (rec.width / 2)) - (textDimension.x / 2)-5, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
     }
     else if (align == RIGHT) {
         DrawText(text, (rec.x + rec.width) - textDimension.x - 5, (rec.y + (rec.height / 2)) - (textDimension.y / 2), fontSize, tColor);
@@ -69,7 +70,7 @@ void DrawEmployeeBox(int posX, int posY, Color bColor, Color lColor, Color tColo
 {
     Rectangle employeeBox = { posX, posY, 400,100 };
     DrawRec(employeeBox, bColor, lColor);
-    DrawTextOnRec(employeeBox, employeeBox.y+10, TextFormat("ID: %s", employee.GetId().c_str()), 30, tColor, LEFT);
+    DrawTextOnRec(employeeBox, employeeBox.y + 10, TextFormat("ID: %s", employee.GetId().c_str()), 30, tColor, LEFT);
     DrawTextOnRec(employeeBox, employeeBox.y + 40, TextFormat("Name: %s", employee.GetName().c_str()), 30, tColor, LEFT);
 }
 
@@ -256,4 +257,12 @@ void DrawCharIndicator(int posX, int posY, int fontSize, Color tColor, InputFiel
     else {
         DrawText(TextFormat("%d/%d", maxChar - inputField.textLength, maxChar), posX, posY, fontSize, RED);
     }
+}
+
+void DrawItemSoldBox(int posX, int posY, Item item, int sold)
+{
+    Rectangle itemBox = { posX, posY, 400,100 };
+    DrawRec(itemBox, WHITE, BLACK);
+    DrawTextOnRec(itemBox, posY + 10, TextFormat("%s", item.GetName().c_str()), 30, BLACK,LEFT);
+    DrawTextOnRec(itemBox, posY + 50, TextFormat("Sold: %d", sold), 30, BLACK, LEFT);
 }

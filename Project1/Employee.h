@@ -21,5 +21,7 @@ public:
 	string GetName();
 	string GetId();
 	string GetDepartment();
+	bool SetName(string name);
+	bool SetDepartment(string newDepartment);
 };
 

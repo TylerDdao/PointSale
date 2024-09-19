@@ -1,4 +1,6 @@
 #include "Zones.h"
+#include "Components.h"
+#include "React.h"
 
 void MenuListZone(int posX, int posY, Core system, DisplayVars& menuListVars)
 {
@@ -25,7 +27,13 @@ void MenuListZone(int posX, int posY, Core system, DisplayVars& menuListVars)
 	if (menuListVars.currentPage < menuListVars.totalPage) {
 		for (int i = 0;i < 3;i++) {
 			Rectangle menuButton = { posX + 158 + i*(210),posY,200,50};
-			DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 30, LEFT);
+			if (menuListVars.isActive[i] == true) {
+				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), YELLOW, BLACK, BLACK, 30, LEFT);
+			}
+			else
+			{
+				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 30, LEFT);
+			}
 			if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
 				fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
 				menuListVars.isActive[menuListVars.count] = true;
@@ -37,6 +45,13 @@ void MenuListZone(int posX, int posY, Core system, DisplayVars& menuListVars)
 		if (menuListVars.remainder != 0) {
 			for (int i = 0; i < menuListVars.remainder;i++) {
 				Rectangle menuButton = { posX + 158 + i * (210),posY,200,50 };
+				if (menuListVars.isActive[i] == true) {
+					DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), YELLOW, BLACK, BLACK, 30, LEFT);
+				}
+				else
+				{
+					DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 30, LEFT);
+				}
 				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 30, LEFT);
 				if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
 					fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
@@ -48,7 +63,13 @@ void MenuListZone(int posX, int posY, Core system, DisplayVars& menuListVars)
 		else {
 			for (int i = 0;i < 3;i++) {
 				Rectangle menuButton = { posX + 158 + i * (210),posY,200,50 };
-				DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 30, LEFT);
+				if (menuListVars.isActive[i] == true) {
+					DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), YELLOW, BLACK, BLACK, 30, LEFT);
+				}
+				else
+				{
+					DrawRec(menuButton, TextFormat("%s", system.GetMenu(menuListVars.count)->GetId().c_str()), WHITE, BLACK, BLACK, 30, LEFT);
+				}
 				if (IsButtonClicked(menuButton, MOUSE_BUTTON_LEFT)) {
 					fill(menuListVars.isActive.begin(), menuListVars.isActive.end(), false);
 					menuListVars.isActive[menuListVars.count] = true;
@@ -431,12 +452,12 @@ void MenuListVerticalZone(int posX, int posY, Core system, DisplayVars& menuList
 	}
 }
 
-void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, int day, int month, int year)
+void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, int month, int year)
 {
 	//saleListVars.ClearAll();
-	Sale* ptr = system.GetSaleHead(month, day, year);
-	int totalSale = system.GetTotalSale(month, day, year);
-	DrawText(TextFormat("Date: %d/%d/%d", month, day, year), posX, posY, 50, BLACK);
+	Sale* ptr = system.GetSaleHeadByMonth(month, year);
+	int totalSale = system.GetTotalSaleByMonth(month, year);
+	DrawText(TextFormat("Date: %d/%d", month, year), posX, posY, 50, BLACK);
 	DrawText(TextFormat("Sale Count: %d", totalSale), posX, posY+ 67, 40, BLACK);
 	Rectangle prevButton = { posX, posY + 460,100,100 };
 	Rectangle nextButton = { posX + 710,posY + 460,100,100 };
@@ -457,7 +478,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 	if (saleListVars.currentPage < saleListVars.totalPage) {
 		for (int i = 0; i < 3; i++) {
 			Rectangle saleButton = { posX, 130 + posY + i * (110),400,100 };
-			DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+			DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 			if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 				fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 				saleListVars.isActive[saleListVars.count] = true;
@@ -466,7 +487,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 		}
 		for (int i = 0; i < 3; i++) {
 			Rectangle saleButton = { posX+410, 130 + posY + i * (110),400,100 };
-			DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+			DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 			if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 				fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 				saleListVars.isActive[saleListVars.count] = true;
@@ -478,7 +499,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 		if (saleListVars.remainder == 0) {
 			for (int i = 0; i < 3; i++) {
 				Rectangle saleButton = { posX, 130 + posY + i * (110),400,100 };
-				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 				if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 					fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 					saleListVars.isActive[saleListVars.count] = true;
@@ -487,7 +508,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 			}
 			for (int i = 0; i < 3; i++) {
 				Rectangle saleButton = { posX + 410, 130 + posY + i * (110),400,100 };
-				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 				if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 					fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 					saleListVars.isActive[saleListVars.count] = true;
@@ -498,7 +519,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 		else if (saleListVars.remainder <= 3) {
 			for (int i = 0; i < saleListVars.remainder; i++) {
 				Rectangle saleButton = { posX, 130 + posY + i * (110),400,100 };
-				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 				if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 					fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 					saleListVars.isActive[saleListVars.count] = true;
@@ -509,7 +530,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 		else if (saleListVars.remainder > 3) {
 			for (int i = 0; i < 3; i++) {
 				Rectangle saleButton = { posX, 130 + posY + i * (110),400,100 };
-				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 				if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 					fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 					saleListVars.isActive[saleListVars.count] = true;
@@ -518,7 +539,7 @@ void SaleListZone(int posX, int posY, Core system, DisplayVars& saleListVars, in
 			}
 			for (int i = 0; i < saleListVars.remainder -3; i++) {
 				Rectangle saleButton = { posX + 410, 130 + posY + i * (110),400,100 };
-				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSale(month, day, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
+				DrawRec(saleButton, TextFormat("Sale ID: %d", system.GetSaleByMonth(month, year, saleListVars.count)->GetId()), WHITE, BLACK, BLACK, 40, CENTER);
 				if (IsButtonClicked(saleButton, MOUSE_BUTTON_LEFT)) {
 					fill(saleListVars.isActive.begin(), saleListVars.isActive.end(), false);
 					saleListVars.isActive[saleListVars.count] = true;
@@ -605,41 +626,27 @@ void OrderListManagerZone(int posX, int posY, Core system, DisplayVars& orderLis
 
 void EmployeeListZone(int posX, int posY, Core system, DisplayVars& employeeListVars, string department)
 {
-	DrawText(TextFormat("%s Deparment", department.c_str()), 0, 0, 50, BLACK);
-	Rectangle prevButton = { posX,posY + 504,100,100 };
-	Rectangle nextButton = { posX+ 710,posY + 504,100,100 };
-	employeeListVars.remainder = system.GetTotalEmployee(department)%6;
-	if (employeeListVars.remainder == 0) {
-		employeeListVars.totalPage = system.GetTotalEmployee(department) / 6;
-	}
-	else {
-		employeeListVars.totalPage = system.GetTotalEmployee(department) / 6 + 1;
-	}
-	employeeListVars.count = employeeListVars.currentPage * 6 - 6;
-	if (employeeListVars.currentPage < employeeListVars.totalPage) {
-		for (int i = 0; i < 3; i++) {
-			Employee* ptr = system.GetEmployee(department, employeeListVars.count);
-			DrawEmployeeBox(posX, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
-			Rectangle employeeBox = { posX, posY + 74 + i * (110) ,400,100 };
-			if (IsButtonClicked(employeeBox, MOUSE_BUTTON_LEFT)) {
-				fill(employeeListVars.isActive.begin(), employeeListVars.isActive.end(), false);
-				employeeListVars.isActive[employeeListVars.count] = true;
+	DrawText(TextFormat("%s Deparment", department.c_str()), posX, posY, 50, BLACK);
+	if (system.GetTotalEmployee(department) != 0) {
+		if (employeeListVars.isActive.size() != system.GetTotalEmployee(department)) {
+			for (size_t i = 0; i < employeeListVars.isActive.size(); i++) {
+				employeeListVars.isActive.pop_back();
 			}
-			employeeListVars.count++;
-		}
-		for (int i = 0; i < 3; i++) {
-			Employee* ptr = system.GetEmployee(department, employeeListVars.count);
-			DrawEmployeeBox(posX+ 410, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
-			Rectangle employeeBox = { posX + 410, posY + 74 + i * (110) ,400,100 };
-			if (IsButtonClicked(employeeBox, MOUSE_BUTTON_LEFT)) {
-				fill(employeeListVars.isActive.begin(), employeeListVars.isActive.end(), false);
-				employeeListVars.isActive[employeeListVars.count] = true;
+			for (int i = 0; i < system.GetTotalEmployee(department); i++) {
+				employeeListVars.isActive.push_back(false);
 			}
-			employeeListVars.count++;
 		}
-	}
-	else {
+		Rectangle prevButton = { posX,posY + 404,100,100 };
+		Rectangle nextButton = { posX + 710,posY + 404,100,100 };
+		employeeListVars.remainder = system.GetTotalEmployee(department) % 6;
 		if (employeeListVars.remainder == 0) {
+			employeeListVars.totalPage = system.GetTotalEmployee(department) / 6;
+		}
+		else {
+			employeeListVars.totalPage = system.GetTotalEmployee(department) / 6 + 1;
+		}
+		employeeListVars.count = employeeListVars.currentPage * 6 - 6;
+		if (employeeListVars.currentPage < employeeListVars.totalPage) {
 			for (int i = 0; i < 3; i++) {
 				Employee* ptr = system.GetEmployee(department, employeeListVars.count);
 				DrawEmployeeBox(posX, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
@@ -662,20 +669,7 @@ void EmployeeListZone(int posX, int posY, Core system, DisplayVars& employeeList
 			}
 		}
 		else {
-			if (employeeListVars.remainder <=3)
-			{
-				for (int i = 0; i < employeeListVars.remainder; i++) {
-					Employee* ptr = system.GetEmployee(department, employeeListVars.count);
-					DrawEmployeeBox(posX, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
-					Rectangle employeeBox = { posX, posY + 74 + i * (110) ,400,100 };
-					if (IsButtonClicked(employeeBox, MOUSE_BUTTON_LEFT)) {
-						fill(employeeListVars.isActive.begin(), employeeListVars.isActive.end(), false);
-						employeeListVars.isActive[employeeListVars.count] = true;
-					}
-					employeeListVars.count++;
-				}
-			}
-			else if (employeeListVars.remainder > 3) {
+			if (employeeListVars.remainder == 0) {
 				for (int i = 0; i < 3; i++) {
 					Employee* ptr = system.GetEmployee(department, employeeListVars.count);
 					DrawEmployeeBox(posX, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
@@ -686,7 +680,7 @@ void EmployeeListZone(int posX, int posY, Core system, DisplayVars& employeeList
 					}
 					employeeListVars.count++;
 				}
-				for (int i = 0; i < employeeListVars.remainder-3; i++) {
+				for (int i = 0; i < 3; i++) {
 					Employee* ptr = system.GetEmployee(department, employeeListVars.count);
 					DrawEmployeeBox(posX + 410, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
 					Rectangle employeeBox = { posX + 410, posY + 74 + i * (110) ,400,100 };
@@ -697,15 +691,55 @@ void EmployeeListZone(int posX, int posY, Core system, DisplayVars& employeeList
 					employeeListVars.count++;
 				}
 			}
+			else {
+				if (employeeListVars.remainder <= 3)
+				{
+					for (int i = 0; i < employeeListVars.remainder; i++) {
+						Employee* ptr = system.GetEmployee(department, employeeListVars.count);
+						DrawEmployeeBox(posX, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
+						Rectangle employeeBox = { posX, posY + 74 + i * (110) ,400,100 };
+						if (IsButtonClicked(employeeBox, MOUSE_BUTTON_LEFT)) {
+							fill(employeeListVars.isActive.begin(), employeeListVars.isActive.end(), false);
+							employeeListVars.isActive[employeeListVars.count] = true;
+						}
+						employeeListVars.count++;
+					}
+				}
+				else if (employeeListVars.remainder > 3) {
+					for (int i = 0; i < 3; i++) {
+						Employee* ptr = system.GetEmployee(department, employeeListVars.count);
+						DrawEmployeeBox(posX, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
+						Rectangle employeeBox = { posX, posY + 74 + i * (110) ,400,100 };
+						if (IsButtonClicked(employeeBox, MOUSE_BUTTON_LEFT)) {
+							fill(employeeListVars.isActive.begin(), employeeListVars.isActive.end(), false);
+							employeeListVars.isActive[employeeListVars.count] = true;
+						}
+						employeeListVars.count++;
+					}
+					for (int i = 0; i < employeeListVars.remainder - 3; i++) {
+						Employee* ptr = system.GetEmployee(department, employeeListVars.count);
+						DrawEmployeeBox(posX + 410, posY + 74 + i * (110), WHITE, BLACK, BLACK, *ptr);
+						Rectangle employeeBox = { posX + 410, posY + 74 + i * (110) ,400,100 };
+						if (IsButtonClicked(employeeBox, MOUSE_BUTTON_LEFT)) {
+							fill(employeeListVars.isActive.begin(), employeeListVars.isActive.end(), false);
+							employeeListVars.isActive[employeeListVars.count] = true;
+						}
+						employeeListVars.count++;
+					}
+				}
+			}
+		}
+		DrawRec(prevButton, "<-", WHITE, BLACK, BLACK, 50, CENTER);
+		DrawRec(nextButton, "->", WHITE, BLACK, BLACK, 50, CENTER);
+		DrawText(TextFormat("%d/%d", employeeListVars.currentPage, employeeListVars.totalPage), posX + 360, posY + 421, 50, BLACK);
+		if (IsButtonClicked(prevButton, MOUSE_BUTTON_LEFT) && employeeListVars.currentPage > 1) {
+			employeeListVars.currentPage--;
+		}
+		if (IsButtonClicked(nextButton, MOUSE_BUTTON_LEFT) && employeeListVars.currentPage < employeeListVars.totalPage) {
+			employeeListVars.currentPage++;
 		}
 	}
-	DrawRec(prevButton, "<-", WHITE, BLACK, BLACK, 50, CENTER);
-	DrawRec(nextButton, "->", WHITE, BLACK, BLACK, 50, CENTER);
-	DrawText(TextFormat("%d/%d", employeeListVars.currentPage, employeeListVars.totalPage), posX + 360, posY + 421, 50, BLACK);
-	if (IsButtonClicked(prevButton, MOUSE_BUTTON_LEFT) && employeeListVars.currentPage > 1) {
-		employeeListVars.currentPage--;
-	}
-	if (IsButtonClicked(nextButton, MOUSE_BUTTON_LEFT) && employeeListVars.currentPage < employeeListVars.totalPage) {
-		employeeListVars.currentPage++;
+	else {
+		DrawText("No Employee", posX + 257, posY + 219, 50, BLACK);
 	}
 }

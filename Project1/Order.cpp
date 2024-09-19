@@ -7,6 +7,7 @@ Order::Order()
 	this->next = nullptr;
 	this->price = 0;
 	this->note = "\0";
+	this->isPromoted = false;
 }
 
 Order::Order(string itemId, int quantity,float price, string note)
@@ -16,6 +17,7 @@ Order::Order(string itemId, int quantity,float price, string note)
 	this->next = nullptr;
 	this->price = price;
 	this->note = "\0";
+	this->isPromoted = false;
 }
 
 bool Order::ModifyOrder(Order newOrder)
@@ -25,6 +27,18 @@ bool Order::ModifyOrder(Order newOrder)
 	this->price = newOrder.GetPrice();
 	return true;
 }
+
+bool Order::IsPromoted()
+{
+	return isPromoted;
+}
+
+bool Order::SetPromoted(bool value)
+{
+	this->isPromoted = value;
+	return true;
+}
+
 
 bool Order::Increase(int value)
 {

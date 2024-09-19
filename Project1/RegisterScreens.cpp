@@ -1,5 +1,6 @@
 #include "RegisterScreens.h"
-
+#include "Components.h"
+#include "React.h"
 void RHome(int& screen, Core& system)
 {
 	while (screen == R_Home) {
@@ -331,6 +332,9 @@ void NewOrder(int& screen, Core& system)
 			float discountedAmount = (current.GetPrice() * (percentPromotion / 100)) + amountPromotion;
 			orderPrice -= discountedAmount * quantity;
 			Order newOrder(current.GetId(), quantity, orderPrice, note);
+			if (discountedAmount != 0) {
+				newOrder.SetPromoted(true);
+			}
 			saleTemp.AddOrder(newOrder);
 			screen = R_Menu;
 		}

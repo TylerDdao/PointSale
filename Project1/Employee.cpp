@@ -29,3 +29,21 @@ string Employee::GetDepartment()
 {
 	return deparment;
 }
+
+bool Employee::SetName(string name)
+{
+	this->name = name;
+	return true;
+}
+
+bool Employee::SetDepartment(string newDepartment)
+{
+	if (newDepartment == CASHIER) {
+		this->id[0] = 'C';
+	}
+	else if (newDepartment == MANAGER) {
+		this->id[0] = 'M';
+	}
+	this->deparment = newDepartment;
+	return true;
+}

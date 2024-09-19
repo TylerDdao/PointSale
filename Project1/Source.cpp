@@ -1,4 +1,3 @@
-#include "raylib.h"
 #include <iostream>
 #include "Screens.h"
 #include "RegisterScreens.h"
@@ -16,8 +15,7 @@ int main() {
     const int screenWidth = 1366;
     const int screenHeight = 768;
     int screen = Login_Site;
-    InitWindow(screenWidth, screenHeight, "PointSale (version 1.0)");
-    SetTargetFPS(60);
+    Initialize(screenWidth, screenHeight, "PointSale", 60);
     bool running = true;
     Core system;
     LoadMenus("Menu.txt", system);
@@ -49,8 +47,6 @@ int main() {
     //Item item8("Item 8", "I8", 10);
     //system.GetMenu(0)->AddItem(item8);
     //system.SetCurrentWorking("M161105");
-    Employee me("M161105", "Tyler Dao", "Manager");
-    system.AddEmployee(me);
 
     //Order newOrder2(item2, 2);
     //saleTemp.AddOrder(newOrder2);
@@ -120,6 +116,43 @@ int main() {
         }
         case M_Order_List: {
             MOrderList(screen, system);
+            break;
+        }
+        case M_Employee_List: {
+            MEmployeeList(screen, system);
+            break;
+        }
+        case M_Add_Employee: {
+            MAddEmployee(screen, system);
+            break;
+        }
+        case M_New_Employee: {
+            MNewEmployee(screen, system);
+            break;
+        }
+        case M_Edit_Employee: {
+            MEditEmployee(screen, system);
+            break;
+        }
+        case M_Employee_Edited_Info:{
+            MEmployeeEditedInfo(screen, system);
+            break;
+        }
+        case M_R_SearchSale: {
+            MRSearchSale(screen, system);
+            break;
+        }
+        case M_Report_List: {
+            MReportList(screen, system);
+            break;
+        }
+        case M_Finance_Report: {
+            MFinanceReport(screen, system);
+            break;
+        }
+        case M_Report_Day_List: {
+            MReportDayList(screen, system);
+            break;
         }
         case Not_Found_404: {
             NotFound404(screen);
@@ -139,6 +172,6 @@ int main() {
         }
     }
 
-    CloseWindow();
+    DeInitialize();
     return 0;
 }

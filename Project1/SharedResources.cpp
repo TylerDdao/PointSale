@@ -55,9 +55,11 @@ InterScreensVars::InterScreensVars()
     currentItem = nullptr;
     currentOrder = nullptr;
     currentSale = nullptr;
+    currentEmployee = nullptr;
     this->day = 0;
     this->month = 0;
     this->year = 0;
+    this->stringId = "\0";
 }
 
 void InterScreensVars::ClearAll()
@@ -69,6 +71,8 @@ void InterScreensVars::ClearAll()
     currentItem = nullptr;
     currentOrder = nullptr;
     currentSale = nullptr;
+    currentEmployee = nullptr;
+    this->stringId = "\0";
 }
 
 void InterScreensVars::ClearCurrentItem()
@@ -84,6 +88,23 @@ void InterScreensVars::ClearCurrentOrder()
 void InterScreensVars::ClearCurrentSale()
 {
     currentSale = nullptr;
+}
+
+void InterScreensVars::ClearCurrentEmployee()
+{
+    currentEmployee = nullptr;
+}
+
+void InterScreensVars::ClearStringId()
+{
+    this->stringId = "\0";
+}
+
+void InterScreensVars::ClearDate()
+{
+    this->day = 0;
+    this->month = 0;
+    this->year = 0;
 }
 
 bool InterScreensVars::SetDate(int day, int month, int year)
@@ -118,6 +139,18 @@ bool InterScreensVars::SetSale(Sale* ptr)
     return true;
 }
 
+bool InterScreensVars::SetEmployee(Employee* ptr)
+{
+    currentEmployee = ptr;
+    return true;
+}
+
+bool InterScreensVars::SetStringId(string id)
+{
+    this->stringId = id;
+    return true;
+}
+
 int InterScreensVars::GetDay()
 {
     return day;
@@ -131,6 +164,11 @@ int InterScreensVars::GetMonth()
 int InterScreensVars::GetYear()
 {
     return year;
+}
+
+string InterScreensVars::GetStringId()
+{
+    return stringId;
 }
 
 Menu* InterScreensVars::GetMenu()
@@ -151,4 +189,9 @@ Order* InterScreensVars::GetOrder()
 Sale* InterScreensVars::GetSale()
 {
     return currentSale;
+}
+
+Employee* InterScreensVars::GetEmployee()
+{
+    return currentEmployee;
 }

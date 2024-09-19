@@ -1,5 +1,6 @@
 #include "Screens.h"
-
+#include "Components.h"
+#include "React.h"
 //void HomeScreen(int& screen)
 //{
 //	while (screen == Home) {
@@ -72,6 +73,17 @@ void Login(int& screen, Core& system)
 		}
 		EndDrawing();
 	}
+}
+
+void Initialize(int screenWidth, int screenHeight, string name, int fps)
+{
+	InitWindow(screenWidth, screenHeight, name.c_str());
+	SetTargetFPS(fps);
+}
+
+void DeInitialize()
+{
+	CloseWindow();
 }
 
 void NotFound404(int& screen)

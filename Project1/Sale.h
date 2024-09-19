@@ -36,6 +36,10 @@ public:
 
 	int GetTotalOrders();
 
+	int GetTotalItemSold();
+	int GetTotalItemSold(string itemId);
+
+
 	string GetType();
 	string GetPayment();
 

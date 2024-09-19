@@ -69,6 +69,16 @@ bool Sale::AddOrder(Order newOrder)
 	if (ptr == nullptr) {
 		return false;
 	}
+	Order* searchPtr = orderList;
+	while (searchPtr != nullptr) {
+		if (searchPtr->GetItemId() == ptr->GetItemId()) {
+			if (!ptr->IsPromoted()) {
+				searchPtr->Increase(ptr->GetQuantity());
+				return true;
+			}
+		}
+		searchPtr = searchPtr->next;
+	}
 	ptr->next = orderList;
 	orderList = ptr;
 	this->total = total + ptr->GetPrice();
@@ -122,6 +132,30 @@ int Sale::GetTotalOrders()
 	while (ptr != nullptr) {
 		ptr = ptr->next;
 		count++;
+	}
+	return count;
+}
+
+int Sale::GetTotalItemSold()
+{
+	int count = 0;
+	Order* ptr = orderList;
+	while (ptr != nullptr) {
+		count =count+ ptr->GetQuantity();
+		ptr = ptr->next;
+	}
+	return count;
+}
+
+int Sale::GetTotalItemSold(string itemId)
+{
+	int count = 0;
+	Order* ptr = orderList;
+	while (ptr != nullptr) {
+		if (ptr->GetItemId() == itemId) {
+			count = count + ptr->GetQuantity();
+		}
+		ptr = ptr->next;
 	}
 	return count;
 }
