@@ -24,6 +24,10 @@ Run file `PointSale.exe`
 ## Programming Language
 PointSale is made by C++. The graphic is made by an open source library `RayLib`
 
+## Contribution
+This is an individual project, the project was done by Tyler Dao.
+
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
