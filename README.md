@@ -21,7 +21,7 @@ PointSale will save all the data into 3 .txt files which are for employees, menu
 - Go to `x64` folder then go to `Debug` then run file `Project1.exe`
 
 ## Programming Language
-PointSale is made by C++. The graphic is made by an open source library `RayLib`
+PointSale is made by C++. The graphic is made by an open source C/C++ library [RayLib](https://www.raylib.com/).
 
 ## Contribution
 This is an individual project, the project was done by Tyler Dao.
