@@ -2,7 +2,7 @@
 ## Purpose
 PointSale is a POS sofware for small restaurant. It allows to create multiple menu, manage employee, etc.
 
-## Main feature
+## Main features
 ### Items and menus
 PointSale allows user to create multiple item, each item needs to have an unique code made by the user. PointSale also allows to create multiple menus depent on the need of user.
 ### Human Resources
@@ -18,8 +18,7 @@ PointSale will save all the data into 3 .txt files which are for employees, menu
 - Pointers
 - References
 ## Installation
-
-Run file `PointSale.exe`
+- Go to `x64` folder then go to `Debug` then run file `Project1.exe`
 
 ## Programming Language
 PointSale is made by C++. The graphic is made by an open source library `RayLib`
