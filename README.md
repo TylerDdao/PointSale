@@ -23,8 +23,8 @@ PointSale will save all the data into 3 .txt files which are for employees, menu
 ## Programming Language
 PointSale is made by C++. The graphic is made by an open source C/C++ library [RayLib](https://www.raylib.com/).
 
-## Further updates
-- Taxable item and non taxable item
+## Future updates
+- Taxable items and non taxable items
 - Add more fees (if needed) to a sale
 - Create more department for employees
 
