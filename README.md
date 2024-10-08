@@ -18,6 +18,7 @@ PointSale will save all the data into 3 .txt files which are for employees, menu
 - Pointers
 - References
 ## Installation
+
 - Go to `x64` folder then go to `Debug` then run file `Project1.exe`
 
 ## Programming Language
